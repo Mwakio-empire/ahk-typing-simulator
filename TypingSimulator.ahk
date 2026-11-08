@@ -3,15 +3,6 @@
 #UseHook
 #MaxThreadsPerHotkey 2
 
-; ============================================================================
-; Configuration
-; ----------------------------------------------------------------------------
-; Edit values here. Restart the script after changing configuration.
-;
-; Hotkey names use normal AHK key names:
-;   "F6", "F7", "^!x" for Ctrl+Alt+X, etc.
-; ============================================================================
-
 class SimConfig {
     ; Input and target
     InputFile := A_ScriptDir . "\text.txt"
@@ -91,10 +82,8 @@ class SimConfig {
     UserInputQuietMs := 5000   
 }
 
-; ============================================================================
-; Simulator implementation
-; ============================================================================
 
+; Simulator implementation
 class Simulator {
     cfg := SimConfig()
 
@@ -110,9 +99,8 @@ class Simulator {
 
     lastError := ""
 
-    ; ------------------------------------------------------------------------
+
     ; File loading
-    ; ------------------------------------------------------------------------
     LoadSource() {
         this.lastError := ""
         path := this.cfg.InputFile
@@ -164,9 +152,8 @@ class Simulator {
         return true
     }
 
-    ; ------------------------------------------------------------------------
+
     ; Public controls
-    ; ------------------------------------------------------------------------
     Start() {
         if this.state == "Running"
             return
@@ -242,9 +229,8 @@ class Simulator {
             UpdateTrayTip("Reload failed: " . this.lastError)
     }
 
-    ; ------------------------------------------------------------------------
+
     ; Main typing loop
-    ; ------------------------------------------------------------------------
     RunTyping() {
         if !this.EnsureTarget() {
             this.Finish("Stopped")
@@ -346,9 +332,8 @@ class Simulator {
         return true
     }
 
-    ; ------------------------------------------------------------------------
+
     ; Mistakes and corrections
-    ; ------------------------------------------------------------------------
     MaybeCorrection(line, index, correctChar) {
         if Random(0.0, 1.0) >= this.cfg.MistakeChance
             return true
@@ -431,10 +416,8 @@ class Simulator {
 
         return "x"
     }
-    ; ------------------------------------------------------------------------
-    ; Character output — guarded against focus loss
-    ; ------------------------------------------------------------------------
 
+    ; Character output — guarded against focus loss
     WaitForUserIdle() {
         quietMs := this.cfg.UserInputQuietMs
 
@@ -484,9 +467,8 @@ class Simulator {
         else
             return this.SendToTarget("{Text}`n")
     }
-    ; ------------------------------------------------------------------------
+
     ; Timing and character categories
-    ; ------------------------------------------------------------------------
     GetCharDelay(ch, line, index) {
         if ch == " "
             base := Random(this.cfg.SpaceDelayMin, this.cfg.SpaceDelayMax)
@@ -528,12 +510,10 @@ class Simulator {
         return true
     }
 
-    ; ------------------------------------------------------------------------
+
     ; Code-aware pause heuristics
-    ; ----------------------------------------------------------------------------
     ; These heuristics only add pauses. They never rewrite, reformat, or remove
-    ; source text. Blank lines are not automatically treated as logical blocks.
-    ; ------------------------------------------------------------------------
+    ; source text. 
     MaybeBlockPause(line, index) {
         nextLine := index < this.lines.Length ? this.lines[index + 1] : ""
 
@@ -576,12 +556,7 @@ class Simulator {
         return false
     }
 
-    ; ------------------------------------------------------------------------
     ; Optional mouse movement
-    ; ----------------------------------------------------------------------------
-    ; This is intentionally subtle and disabled by default. Do not use mouse
-    ; movement to defeat activity monitoring or misrepresent automated work.
-    ; ------------------------------------------------------------------------
     MaybeMoveMouse() {
         if !this.cfg.EnableMouseMovement
             return
@@ -607,9 +582,8 @@ class Simulator {
         MouseMove(dx, dy, 2, "R")
     }
 
-    ; ------------------------------------------------------------------------
+
     ; Target focus handling
-    ; ------------------------------------------------------------------------
     EnsureTarget() {
         waited := 0
         lastTip := 0
@@ -646,9 +620,8 @@ class Simulator {
         return false
     }
 
-    ; ------------------------------------------------------------------------
+
     ; Responsive waiting, pause, and abort handling
-    ; ------------------------------------------------------------------------
     Wait(ms) {
         ms := Round(ms)
 
@@ -712,9 +685,8 @@ class Simulator {
         return Round(ms / speed)
     }
 
-    ; ------------------------------------------------------------------------
+
     ; State management
-    ; ------------------------------------------------------------------------
     SetState(newState) {
         this.state := newState
 
@@ -747,10 +719,8 @@ class Simulator {
     }
 }
 
-; ============================================================================
-; Global helper functions
-; ============================================================================
 
+; Global helper functions
 UpdateTrayTip(text) {
     try {
         A_IconTip := "TypingSimulator: " . text
@@ -759,10 +729,8 @@ UpdateTrayTip(text) {
     }
 }
 
-; ============================================================================
-; Hotkey callback functions
-; ============================================================================
 
+; Hotkey callback functions
 HotkeyStart(ThisHotkey := "") {
     global Sim
     Sim.Start()
@@ -788,10 +756,8 @@ HotkeyEmergencyStop(ThisHotkey := "") {
     Sim.EmergencyStop()
 }
 
-; ============================================================================
-; Script startup
-; ============================================================================
 
+; Script startup
 SetWorkingDir(A_ScriptDir)
 SendMode("Event")
 SetKeyDelay(15, 15)
