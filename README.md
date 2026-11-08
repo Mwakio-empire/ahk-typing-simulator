@@ -1,4 +1,4 @@
-# ⌨️ TypingSimulator (AutoHotkey v2)
+# TypingSimulator (AutoHotkey v2)
 
 A configurable typing simulator that reproduces *human-like* typing into any
 focused editor (built for VS Code): variable per-character delays, occasional
