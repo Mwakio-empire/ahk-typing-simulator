@@ -8,7 +8,7 @@ aware hesitation — controlled entirely by hotkeys.
 ![AHK v2](https://img.shields.io/badge/AutoHotkey-v2-48a463)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
 
-## ✨ Features
+## Features
 - **Realistic timing engine** — separate delay ranges for letters, digits,
   symbols, punctuation, spaces, line ends and blank lines.(which u can edit btw depending on your likes)
 - **Mistake & correction model** — random wrong keys, multi-character
@@ -24,13 +24,13 @@ aware hesitation — controlled entirely by hotkeys.
 ## 🎬 Demo
 ![demo](assets/demo.gif)   <!-- record one with ScreenToGif — this matters most -->
 
-## 🚀 Quick start
+## Quick start
 1. Install AutoHotkey v2.
 2. Put your source text in `text.txt` next to the script (or change
    `InputFile` in `SimConfig`).
 3. Run `TypingSimulator.ahk`, focus VS Code, press **F6**.
 
-## ⚙️ Configuration
+## Configuration
 | Setting | Default | Meaning |
 |---|---|---|
 | `TypingSpeed` | 1.0 | Global speed multiplier |
@@ -38,10 +38,10 @@ aware hesitation — controlled entirely by hotkeys.
 | `HotkeyStart` | F6 | Start simulation |
 | ... | | |
 
-## ⚖️ Intended use
+## Intended use
 Built for demos, UI testing, accessibility research and automation
 experimentation. Do not use it to misrepresent automated work or to defeat
 activity/attendance monitoring.
 
-## 📄 License
+## License
 MIT
