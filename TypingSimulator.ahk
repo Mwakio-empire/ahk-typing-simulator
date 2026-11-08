@@ -52,7 +52,7 @@ class SimConfig {
     BlankLineDelayMin := 160
     BlankLineDelayMax := 650
 
-    ; Code-block pauses. These are heuristic only; they never modify text.
+    ; Code-block pauses never modifies text.
     BlockPauseChance := 0.35
     BlockDelayMin := 450
     BlockDelayMax := 1800
@@ -70,7 +70,6 @@ class SimConfig {
     CorrectionDelayMax := 420
 
     ; Optional mouse movement.
-    ; Disabled by default because mouse movement can interfere with the user.
     EnableMouseMovement := true
     MouseMoveChance := 0.02
     MouseMoveMin := 4
@@ -145,7 +144,7 @@ class Simulator {
 
         ; If the file ends with a newline, StrSplit creates a trailing empty
         ; element. We remove that artificial element and use endsWithNewline
-        ; to decide whether to press Enter after the final real line.
+        ; to decide whether to press Enter after the final real line.(hope the comment help :))
         if this.endsWithNewline && this.lines.Length > 0 && this.lines[this.lines.Length] == ""
             this.lines.Pop()
 
